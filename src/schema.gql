@@ -1,0 +1,43 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Message {
+  id: Int!
+  content: String!
+  sender: User!
+  recipient: User!
+  isAccepted: Boolean!
+}
+
+type User {
+  id: Int!
+  username: String!
+  email: String!
+  sentMessages: [Message!]!
+  receivedMessages: [Message!]!
+}
+
+type Query {
+  users: [User!]!
+  user(id: Int!): User!
+  messages(recipientId: Int!): [Message!]!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  sendMessage(sendMessageInput: SendMessageInput!): Message!
+  acceptMessageRequest(messageId: Int!): Boolean!
+  rejectMessageRequest(messageId: Int!): Boolean!
+}
+
+input CreateUserInput {
+  username: String!
+  email: String!
+}
+
+input SendMessageInput {
+  senderId: Int!
+  recipientId: Int!
+  content: String!
+}
