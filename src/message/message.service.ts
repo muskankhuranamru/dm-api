@@ -2,21 +2,21 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Message } from '../entities/message.entity';
-import { User } from '../entities/user.entity'; // Import User entity
+import { User } from '../entities/user.entity';
 
 @Injectable()
 export class MessageService {
   constructor(
     @InjectRepository(Message)
     private messageRepository: Repository<Message>,
-    @InjectRepository(User) // Inject UserRepository
+    @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
 
   findMessagesByRecipient(recipientId: number): Promise<Message[]> {
     return this.messageRepository.find({
       where: { recipient: { id: recipientId } },
-      relations: ['sender', 'recipient'], // Ensure related entities are loaded
+      relations: ['sender', 'recipient'],
     });
   }
 
